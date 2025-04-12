@@ -33,6 +33,13 @@ import LayoutDashboard from "../components/layout";
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: async () => {
+      const session = secureLocalStorage.getItem(STORAGE_KEY);
+      if (!session) {
+        throw redirect("/manager/sign-in");
+      }
+      return true;
+    },
     element: <ManagerHomePage />,
   },
   {
